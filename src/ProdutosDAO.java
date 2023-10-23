@@ -24,8 +24,8 @@ public class ProdutosDAO {
     
     public void cadastrarProduto (ProdutosDTO produto){
         
-        
-        //conn = new conectaDAO().connectDB();
+        listagem.add(produto);
+        conn = new conectaDAO().connectDB();
         
         
     }
