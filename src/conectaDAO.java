@@ -28,8 +28,7 @@ public class conectaDAO {
                
         try {
         
-            conn = DriverManager.getConnection(URL,User,Pass);
-            System.out.println("Conectado!!");
+            conn = DriverManager.getConnection(URL,User,Pass);            
             
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());

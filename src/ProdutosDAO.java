@@ -24,6 +24,7 @@ public class ProdutosDAO {
     PreparedStatement prep;
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    ArrayList<ProdutosDTO> listagemVendidos = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
         conn = new conectaDAO().connectDB();
@@ -103,6 +104,37 @@ public class ProdutosDAO {
     }
     
     
+    // listar vendidos
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        try {
+            conn = new conectaDAO().connectDB();            
+            prep = conn.prepareStatement("SELECT * FROM produtos Where Estatus = 'vendido'");
+            resultset = prep.executeQuery();
+            
+            while(resultset.next()){
+                ProdutosDTO produtos = new ProdutosDTO();
+                
+                produtos.setId(resultset.getInt("id"));
+                produtos.setNome(resultset.getString("NOME"));
+                produtos.setValor(resultset.getInt("VALOR"));
+                produtos.setStatus(resultset.getString("ESTATUS"));
+                
+                listagemVendidos.add(produtos);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+         return listagemVendidos;
+    }
     
         
 }
