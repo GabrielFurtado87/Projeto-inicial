@@ -45,13 +45,31 @@ public class ProdutosDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }
-        
-        
-        
-        
+    
+    public void venderProduto(int id){
+        conn = new conectaDAO().connectDB();
+        try {
+            prep = conn.prepareStatement("UPDATE produtos SET ESTATUS = 'vendido' WHERE ID = ?");
+            prep.setInt(1, id);
+                        
+            prep.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Produto "+ id + "Vendido com sucesso!");
+            
+        } catch (SQLException sQLException) {
+            JOptionPane.showMessageDialog(null, "Erro ao Atualizar " + sQLException);
+        }finally{
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }
+       
+    
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         try {
